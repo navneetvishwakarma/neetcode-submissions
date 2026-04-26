@@ -1,0 +1,24 @@
+class Solution {
+    public boolean isValid(String s) {
+        // Odd length string can never be balanced.
+        if (s.length() % 2 == 1) return false;
+
+        Deque<Character> stack = new ArrayDeque<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (ch == '(' || ch == '{' || ch == '[') {
+                stack.push(ch);
+            } else {
+                if (stack.isEmpty()) return false;
+                if (ch == ')' && stack.peek() != '(') return false;
+                else if (ch == '}' && stack.peek() != '{') return false;
+                else if (ch == ']' && stack.peek() != '[') return false;
+                stack.pop();
+            }
+        }
+        
+        return stack.size() == 0;
+    }
+
+}
